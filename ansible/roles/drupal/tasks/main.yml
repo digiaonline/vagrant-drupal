@@ -7,7 +7,7 @@
   register: drupal_exists
 
 - name: Download Drupal
-  shell: drush dl drupal -y --destination=/vagrant --drupal-project-rename=drupal
+  shell: drush dl drupal -y --destination=/vagrant --drupal-project-rename=drupal --default-major={{ drupal.version }}
   when: drupal_exists.stat.exists == false
 
 - name: Create files directory
@@ -17,9 +17,9 @@
   template: src=settings.j2 dest=/vagrant/drupal/sites/default/settings.php
 
 - name: Check if Drupal is installed
-  shell: mysql -uroot -p{{ mariadb.root_password }} -e 'SHOW DATABASES;' | grep {{ mariadb.database }}
-  register: database_exists
+  shell: mysql -uroot -p{{ mariadb.root_password }} {{ mariadb.database }} -N -B -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '{{ mariadb.database }}'"
+  register: num_tables
 
 - name: Install Drupal
   shell: drush si -y {{ drupal.install_profile }} --db-url='mysql://{{ mariadb.user }}:{{ mariadb.password }}@localhost/{{ mariadb.database }}' --site-name={{ drupal.site_name }} --account-name={{ drupal.account.username }} --account-pass={{ drupal.account.password }} chdir=/vagrant/drupal
-  when: database_exists.rc == 0
+  when: num_tables.stdout == '0'
