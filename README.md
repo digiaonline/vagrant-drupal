@@ -7,7 +7,7 @@ Vagrant environment for Drupal projects.
 Perform the following steps to set up your environment:
 
 - Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads), [Vagrant](http://www.vagrantup.com/downloads.html) and [Ansible](http://docs.ansible.com/intro_installation.html)
-- Clone the project to e.g. ```~/projects/vagrant-drupal```
+- Clone this project template to e.g. ```~/projects/vagrant-drupal```
 - Create a repository for your project and clone it
 - Copy this template by running ```cp -R ../vagrant-drupal/* .``` in the project root (correcting the path if necessary)
 - Run ```vagrant up``` to create the virtual machine
