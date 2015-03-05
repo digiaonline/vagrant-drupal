@@ -1,0 +1,14 @@
+- hosts: all
+  sudo: true
+  vars_files:
+    - vars/main.yml
+    - vars/nginx.yml
+    - vars/php.yml
+    - vars/mariadb.yml
+    - vars/drupal.yml
+  roles:
+    - init
+    - nginx
+    - php5
+    - mariadb
+    - drupal

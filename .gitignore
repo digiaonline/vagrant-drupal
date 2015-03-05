@@ -1,0 +1,7 @@
+.idea
+.vagrant
+
+drupal/.installed
+
+.DS_Store
+Thumbs.db

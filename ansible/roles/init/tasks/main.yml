@@ -1,0 +1,19 @@
+- name: Update apt
+  sudo: yes
+  apt: update_cache=yes
+
+- name: Install System Packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items: system_packages
+  
+- name: Set the hostname in /etc/hostname
+  shell: echo {{ hostname }} > /etc/hostname
+  when: hostname is defined
+
+- name: Set the hostname
+  shell: hostname {{ hostname }}
+  when: hostname is defined
+
+- name: Update /etc/hosts
+  lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line='127.0.0.1 localhost {{ hostname }}' owner=root group=root mode=0644

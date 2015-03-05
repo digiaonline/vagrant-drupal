@@ -1,0 +1,24 @@
+- name: Install Drush
+  sudo: yes
+  apt: pkg=drush state=latest
+
+- name: Check if Drupal is installed
+  stat: path=/vagrant/drupal/.installed
+  register: drupal_installed
+
+- name: Download Drupal
+  shell: drush dl drupal -y --destination=/vagrant --drupal-project-rename=drupal
+  when: drupal_installed.stat.exists == false
+
+- name: Create files directory
+  file: path=/vagrant/drupal/sites/default/files state=directory
+
+- name: Copy settings.php
+  template: src=settings.j2 dest=/vagrant/drupal/sites/default/settings.php
+
+- name: Install Drupal
+  shell: drush si -y {{ drupal.install_profile }} --db-url='mysql://{{ mariadb.user }}:{{ mariadb.password }}@localhost/{{ mariadb.database }}' --site-name={{ drupal.site_name }} chdir=/vagrant/drupal
+  when: drupal_installed.stat.exists == false
+
+- name: Touch .installed
+  file: path=/vagrant/drupal/.installed state=touch

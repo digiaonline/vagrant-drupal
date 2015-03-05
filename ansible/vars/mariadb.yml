@@ -1,0 +1,5 @@
+mariadb:
+  root_password: root
+  user: drupal
+  password: drupal
+  database: drupal

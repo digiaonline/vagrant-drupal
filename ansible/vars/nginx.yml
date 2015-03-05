@@ -1,0 +1,3 @@
+nginx:
+  host_file: /etc/nginx/sites-available/default
+  host_template: default.j2

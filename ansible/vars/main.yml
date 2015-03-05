@@ -1,0 +1,10 @@
+hostname: drupal
+server_name: drupal
+web_root: /vagrant/drupal
+system_packages:
+  - curl
+  - drush
+  - git-core
+  - python-software-properties
+  - vim
+  - wget

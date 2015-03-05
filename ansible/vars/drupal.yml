@@ -1,0 +1,4 @@
+drupal:
+  version: "7"
+  site_name: Example
+  install_profile: minimal
