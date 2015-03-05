@@ -11,7 +11,7 @@ Perform the following steps to set up your environment:
 - Create a repository for your project and clone it to your computer
 - Copy this template by running ```cp -R ../vagrant-drupal/* .``` in the project root (correcting the path if necessary)
 - Run ```vagrant up``` to create the virtual machine
-- Point your browser to ```http://localhost:1337``` to see your site
+- Point your browser to ```http://localhost:1234 to see your site
 - If everything worked you can now push your changes to the repository
 
 # Troubleshooting
