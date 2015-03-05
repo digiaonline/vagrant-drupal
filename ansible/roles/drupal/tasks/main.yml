@@ -17,7 +17,7 @@
   template: src=settings.j2 dest=/vagrant/drupal/sites/default/settings.php
 
 - name: Install Drupal
-  shell: drush si -y {{ drupal.install_profile }} --db-url='mysql://{{ mariadb.user }}:{{ mariadb.password }}@localhost/{{ mariadb.database }}' --site-name={{ drupal.site_name }} chdir=/vagrant/drupal
+  shell: drush si -y {{ drupal.install_profile }} --db-url='mysql://{{ mariadb.user }}:{{ mariadb.password }}@localhost/{{ mariadb.database }}' --site-name={{ drupal.site_name }} --site-mail={{ drupal.site_mail }} --account-pass={{ drupal.user }} --account-pass={{ drupal.password }} --account-mail={{ drupal.mail }} chdir=/vagrant/drupal
   when: drupal_installed.stat.exists == false
 
 - name: Touch .installed
