@@ -2,8 +2,6 @@ drupal:
   version: "7"
   install_profile: minimal
   site_name: Example
-  site_mail: admin@example.com
-  locale: en
-  user: admin
-  password: admin
-  mail: demo@example.com
+  account:
+    username: admin
+    password: admin

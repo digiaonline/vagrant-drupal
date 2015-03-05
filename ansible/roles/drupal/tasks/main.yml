@@ -2,13 +2,13 @@
   sudo: yes
   apt: pkg=drush state=latest
 
-- name: Check if Drupal is installed
-  stat: path=/vagrant/drupal/.installed
-  register: drupal_installed
+- name: Check if Drupal is downloaded
+  stat: path=/vagrant/drupal/install.php
+  register: drupal_exists
 
 - name: Download Drupal
   shell: drush dl drupal -y --destination=/vagrant --drupal-project-rename=drupal
-  when: drupal_installed.stat.exists == false
+  when: drupal_exists.stat.exists == false
 
 - name: Create files directory
   file: path=/vagrant/drupal/sites/default/files state=directory
@@ -16,9 +16,10 @@
 - name: Copy settings.php
   template: src=settings.j2 dest=/vagrant/drupal/sites/default/settings.php
 
-- name: Install Drupal
-  shell: drush si -y {{ drupal.install_profile }} --db-url='mysql://{{ mariadb.user }}:{{ mariadb.password }}@localhost/{{ mariadb.database }}' --site-name={{ drupal.site_name }} --site-mail={{ drupal.site_mail }} --account-pass={{ drupal.user }} --account-pass={{ drupal.password }} --account-mail={{ drupal.mail }} chdir=/vagrant/drupal
-  when: drupal_installed.stat.exists == false
+- name: Check if Drupal is installed
+  shell: mysql -uroot -p{{ mariadb.root_password }} -e 'SHOW DATABASES;' | grep {{ mariadb.database }}
+  register: database_exists
 
-- name: Touch .installed
-  file: path=/vagrant/drupal/.installed state=touch
+- name: Install Drupal
+  shell: drush si -y {{ drupal.install_profile }} --db-url='mysql://{{ mariadb.user }}:{{ mariadb.password }}@localhost/{{ mariadb.database }}' --site-name={{ drupal.site_name }} --account-name={{ drupal.account.username }} --account-pass={{ drupal.account.password }} chdir=/vagrant/drupal
+  when: database_exists.rc == 0
