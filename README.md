@@ -12,7 +12,7 @@ Perform the following steps to set up your environment:
 - Copy this template by running ```cp -R ../vagrant-drupal/* .``` in the project root (correcting the path if necessary)
 - Run ```vagrant up``` to create the virtual machine
 - Point your browser to ```http://localhost:1234``` to see your site
-- If everything worked you can now push your changes to the repository
+- If everything worked you can now push your changes
 
 # Troubleshooting
 
