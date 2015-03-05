@@ -212,21 +212,17 @@
  *   );
  * @endcode
  */
- $databases = array (
-   'default' =>
-   array (
-     'default' =>
-     array (
-       'database' => '{{ mariadb.database }}',
-       'username' => '{{ mariadb.user }}',
-       'password' => '{{ mariadb.password }}',
-       'host' => '{{ hostname }}',
-       'port' => '',
-       'driver' => 'mysql',
-       'prefix' => '',
-     ),
-   ),
- );
+ if (!defined('PHANTEON_ENVIRONMENT')) {
+   $databases['default']['default'] = array (
+     'database' => '{{ mariadb.database }}',
+     'username' => '{{ mariadb.user }}',
+     'password' => '{{ mariadb.password }}',
+     'host' => '{{ hostname }}',
+     'port' => '',
+     'driver' => 'mysql',
+     'prefix' => '',
+   );
+ }
 
 /**
  * Access control for update.php script.

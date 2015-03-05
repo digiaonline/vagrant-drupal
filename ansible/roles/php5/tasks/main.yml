@@ -10,7 +10,7 @@
   sudo: yes
   apt: pkg=php5-fpm state=latest
 
-- name: Install PHP Packages
+- name: Install Packages
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: php.packages

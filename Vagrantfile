@@ -10,10 +10,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
 
   # Forward port 80 on the guest as 1337 on the host
-  config.vm.network "forwarded_port", guest: 80, host: 1337
+  config.vm.network "forwarded_port", guest: 80, host: 1234
 
-  # Mount working directory as www-data
-  config.vm.synced_folder ".", "/vagrant", owner: "www-data", group: "www-data"
+  # Mount the working directory as www-data
+  config.vm.synced_folder ".", "/vagrant", {
+    :mount_options => ['dmode=777','fmode=777'],
+    :owner => "www-data", :group => "www-data"
+  }
 
   # Allow SSH agent forwarding
   config.ssh.forward_agent = true
