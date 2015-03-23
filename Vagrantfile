@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Define the base box to use
   config.vm.box = "ubuntu/trusty64"
 
-  # Forward port 80 on the guest as 1337 on the host
+  # Forward port 80 on the guest as 1234 on the host
   config.vm.network "forwarded_port", guest: 80, host: 1234
 
   # Mount the working directory as www-data
